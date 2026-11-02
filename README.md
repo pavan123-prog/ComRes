@@ -1,82 +1,62 @@
 # ComRes
 
-ComRes is a community equipment-sharing application for Community Resource Network SA. It lets people browse equipment, check availability, and request a paid hire, a temporary free loan, or a permanent donation.
+ComRes is a community equipment-sharing application for Community Resource Network SA. It helps people find equipment and request a paid hire, a temporary free loan, or a permanent donation.
 
-## What the application supports
+## Who uses ComRes?
 
-- Requesters can register, browse equipment, make and track requests, cancel eligible requests, save a payment method for an approved request, and leave feedback or reviews.
-- Approved community organisations can list equipment and respond to requests for their items.
-- Administrators can manage equipment and blackout dates, review requests and organisation applications, oversee fulfillment, and handle eligible deposit charges and refunds.
-- Notifications, request-status history, and fulfillment history help users follow each request.
+- **Requesters** create an account, browse equipment, check availability, submit requests, and follow or cancel eligible requests.
+- **Organisation providers** apply for an account. An administrator must approve the organisation before it can manage its own listings and requests.
+- **Administrators** review organisation applications, manage equipment and requests, and oversee handover, returns, and eligible payment actions.
 
-## Technology
+Features described here are present in the project code. That does not mean every user journey has been tested with real users or on a live service. The handover materials identify what has and has not been verified.
 
-- Next.js 16 App Router, React 19, and TypeScript
-- Tailwind CSS 4
-- Neon PostgreSQL through `@neondatabase/serverless`
-- Stripe for card setup and deposit-payment workflows
-- Vercel Blob for image uploads
+## Project documents
 
-## Set up locally
+- [Client Handover Start Page](./ComRes_Client_Handover/00_START_HERE.md) — navigation to the current client documents and a clear list of missing evidence.
+- [Project Overview](./ComRes_Client_Handover/01_Project_Overview/Project_Overview_and_Evaluation.pdf) — a plain-language introduction and evaluation summary.
+- [Editable Project Overview](./ComRes_Client_Handover/01_Project_Overview/Project_Overview_and_Evaluation.md) — the Markdown source for the overview PDF.
+- [Deliverables and Scope Guide](./ComRes_Client_Handover/01_Project_Overview/ComRes_Deliverables_and_Scope_Guide_Final.pdf) — what the project includes, its limits, and the evidence still needed.
+- [Editable Deliverables and Scope Guide](./ComRes_Client_Handover/01_Project_Overview/ComRes_Deliverables_and_Scope_Guide_Final.docx) — the Word version of the guide.
+- [Markdown Deliverables and Scope Guide](./ComRes_Client_Handover/01_Project_Overview/ComRes_Deliverables_and_Scope_Guide_Final.md) — the plain-text editable source.
+- [Developer Setup and Technical Handover](./HANDOVER_README.md) — installation, private settings, database preparation, testing, and maintenance.
 
-### Prerequisites
+The individual requester, provider, and administrator guides, as well as separate test reports and presentation evidence, are not included in this personal repository handover.
 
-- Node.js 20.9 or later
-- npm
-- A PostgreSQL database configured with the project schema
-- Service credentials for the features you want to exercise (Stripe and Vercel Blob)
+Copies labelled as backups are retained for project history. Use the files named Project Overview and Deliverables and Scope Guide above as the current client documents.
 
-Install the locked dependencies from the project root:
+## Technology in brief
+
+The application uses Next.js and React to display the website, PostgreSQL to store information, Stripe for card setup and booking-payment actions, and Vercel Blob for uploaded images. These names are included for developers; users do not need to know them to understand the ComRes workflows.
+
+## Run the application
+
+Developers need Node.js 20.9 or later, npm, an authorized PostgreSQL database prepared with the project schema, and service credentials for any external features they want to try.
+
+From the project folder:
 
 ```powershell
 npm ci
-```
-
-Copy the placeholder template and configure its values privately:
-
-```powershell
 Copy-Item .env.example .env.local
 ```
 
-Edit `.env.local` with your database URL, a private `AUTH_SECRET`, and any required Stripe and Blob credentials. `NEXT_PUBLIC_SITE_URL` can be `http://localhost:3000` for local development. Never put real credentials in `.env.example`, documentation, or the handover ZIP.
+Add private settings to `.env.local` as described in the [technical handover](./HANDOVER_README.md). Do not share that file. Database setup is a separate, authorized step; starting the website does not prepare a database automatically.
 
-Start the development server:
+Start the local development website:
 
 ```powershell
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Database-backed pages and external-service workflows need their services configured. The application does not apply database migrations during startup; review the schema and migration cautions in [HANDOVER_README.md](./HANDOVER_README.md) before any database setup or maintenance.
+Then open [the local ComRes website](http://localhost:3000).
 
 ## Check the project
 
-Run the Node.js built-in test files:
+The following commands are available from the project folder:
 
 ```powershell
 node --test
-```
-
-Run ESLint:
-
-```powershell
 npm run lint
-```
-
-Create and serve a production build:
-
-```powershell
 npm run build
-npm run start
 ```
 
-## Project layout
-
-- `app/` — application pages and API route handlers
-- `components/` — shared interface components
-- `lib/` — authentication, database access, request/payment workflows, and tests
-- `db/schema.sql` — PostgreSQL schema
-- `scripts/` — schema and migration utilities; review each script before use
-- `public/` — static assets
-- `docs/superpowers/` — design specifications and implementation plans
-
-See [HANDOVER_README.md](./HANDOVER_README.md) for a fuller setup guide and [ComRes_Deliverables_and_Scope_Guide.docx](./ComRes_Deliverables_and_Scope_Guide.docx) for the deliverables index.
+These are instructions, not a statement that the commands were run for this handover review. See the [Deliverables and Scope Guide](./ComRes_Client_Handover/01_Project_Overview/ComRes_Deliverables_and_Scope_Guide_Final.pdf) for current evidence and outstanding checks.
